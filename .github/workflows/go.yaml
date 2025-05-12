@@ -1,7 +1,7 @@
 name: golang-pipeline
 on: push
 jobs:
-  test:
+  vet_test:
     runs-on: ubuntu-latest
     container: golang:1.23
     steps:
@@ -9,9 +9,21 @@ jobs:
       - name: Run Unit Tests
         run: GOOS=linux GOARCH=amd64 go test
 
-      - name: Vet
+      - name: VetTest
         run: |
           go vet ./...
+
+  unit_test:
+    runs-on: ubuntu-latest
+    container: golang:1.23
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Unit Tests
+        run: GOOS=linux GOARCH=amd64 go test
+
+      - name: UnitTest
+        run: |
+          go test ./...
 
   deploy:
       name: Push Docker image to Docker Hub
