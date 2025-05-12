@@ -1,1 +1,0 @@
-# go-twelfth-sprint
